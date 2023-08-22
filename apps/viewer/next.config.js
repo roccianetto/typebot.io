@@ -130,20 +130,31 @@ const sentryWebpackPluginOptions = {
   release: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA + '-viewer',
 }
 
-module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
-  ? withSentryConfig(
-      {
-        ...nextConfig,
-        sentry: {
-          hideSourceMaps: true,
-          widenClientFileUpload: true,
-        },
+let nextConfig = {
+  reactStrictMode: true,
+  transpileModules: ['@typebot.io/lib', '@typebot.io/schemas', '@typebot.io/emails'],
+  // Outras configurações específicas para o Typebot
+  images: {
+    domains: ['cdn.typebot.io'], // Domínios de onde suas imagens serão carregadas
+  },
+
+};
+
+if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+  nextConfig = withSentryConfig(
+    {
+      ...nextConfig,
+      sentry: {
+        hideSourceMaps: true,
+        widenClientFileUpload: true,
       },
-      sentryWebpackPluginOptions
-    )
-  : nextConfig
+    },
+    sentryWebpackPluginOptions
+  );
+}
 
 module.exports = {
+  ...nextConfig,
   async headers() {
     return [
       {
@@ -154,8 +165,8 @@ module.exports = {
           { key: "Access-Control-Allow-Origin", value: "*" },
           { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
           { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
-        ]
-      }
-    ]
-  }
+        ],
+      },
+    ];
+  },
 };
