@@ -130,28 +130,6 @@ const sentryWebpackPluginOptions = {
   release: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA + '-viewer',
 }
 
-let nextConfig = {
-  reactStrictMode: true,
-  transpileModules: ['@typebot.io/lib', '@typebot.io/schemas', '@typebot.io/emails'],
-  // Outras configurações específicas para o Typebot
-  images: {
-    domains: ['cdn.typebot.io'], // Domínios de onde suas imagens serão carregadas
-  },
-
-};
-
-if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-  nextConfig = withSentryConfig(
-    {
-      ...nextConfig,
-      sentry: {
-        hideSourceMaps: true,
-        widenClientFileUpload: true,
-      },
-    },
-    sentryWebpackPluginOptions
-  );
-}
 
 module.exports = {
   ...nextConfig,
