@@ -15,9 +15,9 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en', 'fr', 'pt', 'de'],
   },
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, '../../'),
-  },
+  // experimental: {
+   // outputFileTracingRoot: path.join(__dirname, '../../'),
+  // },
   async headers() {
     return [
       {
