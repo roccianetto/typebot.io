@@ -1,0 +1,15 @@
+{
+  "routes": [
+    {
+      "src": "/.*",
+      "methods": ["GET", "OPTIONS", "PUT", "POST"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS, PUT, POST",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Expose-Headers": "ETag"
+      }
+    }
+  ]
+}
